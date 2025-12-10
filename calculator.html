@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Invoice Calculator - Miniature Warrior</title>
 
-  <!-- Main site CSS -->
   <link rel="stylesheet" href="style.css">
 
   <!-- jQuery + jsPDF -->
@@ -24,6 +23,7 @@
       box-shadow: 0 0 10px rgba(0,0,0,.15);
     }
 
+    /* Header */
     header {
       background: #040c1a;
       padding: 15px;
@@ -37,7 +37,7 @@
       margin: 0 auto 10px;
     }
 
-    /* Header inside invoice card */
+    /* Invoice Header Layout */
     .invoice-header {
       display: flex;
       justify-content: space-between;
@@ -83,7 +83,6 @@
       border-radius: 5px;
     }
 
-    /* Table */
     table {
       width: 100%;
       border-collapse: collapse;
@@ -147,7 +146,7 @@
   <img src="images/my-logo.jpg" alt="Logo">
   <h1>Miniature Warrior</h1>
 
-  <!-- ========= ADDED NAVIGATION ========= -->
+  <!-- Clean Navigation -->
   <button class="menu-toggle">☰</button>
 
   <nav class="main-nav">
@@ -155,25 +154,9 @@
       <li><a href="index.html">Home</a></li>
       <li><a href="about.html">About</a></li>
       <li><a href="gallery.html">Gallery</a></li>
-
-      <li class="has-submenu">
-        <a href="#">Collections</a>
-        <ul class="submenu">
-          <li><a href="samurai.html">Samurai</a></li>
-          <li><a href="knights.html">Knights</a></li>
-          <li><a href="vikings.html">Vikings</a></li>
-        </ul>
-      </li>
-
-      <li><a href="mortgage.html">Mortgage Calculator</a></li>
-      <li><a href="milespergallon.html">MPG Calculator</a></li>
-      <li><a href="calculator.html" class="active">Invoice Calculator</a></li>
-      <li><a href="socialnews.html">Social News</a></li>
-      <li><a href="contact.html">Contact</a></li>
+      <li><a href="calculator.html" class="active">Calculator</a></li>
     </ul>
   </nav>
-  <!-- ========= END NAVIGATION ========= -->
-
 </header>
 
 <div class="calc-container">
@@ -237,9 +220,7 @@
 </div>
 
 <script>
-/* ---------------------------
-   AUTO INVOICE NUMBER
----------------------------- */
+/* Auto Invoice Number */
 document.addEventListener("DOMContentLoaded", () => {
   let last = localStorage.getItem("mw_last_invoice");
   last = last ? parseInt(last) + 1 : 1;
@@ -248,9 +229,7 @@ document.addEventListener("DOMContentLoaded", () => {
   updateTotals();
 });
 
-/* ---------------------------
-   CALCULATIONS
----------------------------- */
+/* Calculations */
 function updateTotals() {
   let subtotal = 0;
 
@@ -275,127 +254,29 @@ function updateTotals() {
 
 $(document).on("input", ".qty, #disc, #tax", updateTotals);
 
-
-/* ---------------------------
-   PDF GENERATOR WITH LOGO
----------------------------- */
+/* PDF Generator */
 $("#pdf").click(function () {
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF("p", "pt", "letter");
-
-  const darkBlue = "#040c1a";
-  const lightGray = "#f1f1f1";
 
   let logo = new Image();
   logo.src = "images/my-logo.jpg";
 
   logo.onload = function () {
-
-    // Header banner
-    doc.setFillColor(darkBlue);
+    doc.setFillColor("#040c1a");
     doc.rect(0, 0, 612, 90, "F");
 
-    // Logo
     doc.addImage(logo, "JPEG", 25, 18, 60, 60);
 
-    // Header text
     doc.setTextColor("#fff");
     doc.setFontSize(22);
     doc.text("Miniature Warrior", 100, 50);
 
-    doc.setFontSize(10);
-    doc.text("123 Kingsbridge Plaza, Suite 4B | Bronx, NY 10463", 100, 68);
-    doc.text("Phone: (718) 555-9821   Email: info@miniaturewarrior.com", 100, 82);
-
-    // Invoice title
-    doc.setTextColor("#000");
-    doc.setFontSize(18);
-    doc.text("Invoice #" + $("#invoice_number").val(), 40, 130);
-
-    doc.setFontSize(12);
-    doc.text("Date: " + ($("#invoice_date").val() || "________"), 40, 148);
-
-    // BILL TO & FOR
-    doc.setFontSize(14);
-    doc.text("Bill To", 40, 185);
-    doc.text("For", 330, 185);
-
-    doc.setFontSize(11);
-
-    $("#bill_to").val().split("\n").forEach((line, i) => {
-      doc.text(line, 40, 205 + i * 14);
-    });
-
-    $("#bill_for").val().split("\n").forEach((line, i) => {
-      doc.text(line, 330, 205 + i * 14);
-    });
-
-    // Table header
-    let startY = 270;
-    doc.setFillColor(darkBlue);
-    doc.setTextColor("#fff");
-    doc.rect(40, startY, 532, 25, "F");
-
-    doc.setFontSize(12);
-    doc.text("Item Description", 55, startY + 17);
-    doc.text("Qty", 300, startY + 17);
-    doc.text("Unit Price", 370, startY + 17);
-    doc.text("Amount", 470, startY + 17);
-
-    // Table rows
-    doc.setTextColor("#000");
-    let y = startY + 43;
-    doc.setFontSize(11);
-
-    $("#item-rows tr").each(function () {
-      const item = $(this).find("td:eq(0)").text();
-      const qty = $(this).find(".qty").val() || "0";
-      const price = $(this).find(".unit-price").text();
-      const amount = $(this).find(".line").text();
-
-      doc.text(item, 55, y);
-      doc.text(String(qty), 305, y);
-      doc.text(price, 380, y);
-      doc.text("$" + amount, 470, y);
-
-      y += 18;
-    });
-
-    // Totals
-    let totalsY = y + 20;
-
-    doc.setFontSize(12);
-    doc.text("Subtotal:", 380, totalsY);
-    doc.text("$" + $("#sub").text(), 500, totalsY);
-
-    doc.text("Discount:", 380, totalsY + 18);
-    doc.text($("#disc").val() + "%", 500, totalsY + 18);
-
-    doc.text("Tax:", 380, totalsY + 36);
-    doc.text($("#tax").val() + "%", 500, totalsY + 36);
-
-    // Total box
-    doc.setFillColor(lightGray);
-    doc.rect(350, totalsY + 50, 230, 40, "F");
-
-    doc.setFontSize(14);
-    doc.text("Total Cost:", 360, totalsY + 78);
-    doc.text("$" + $("#total").text(), 500, totalsY + 78);
-
-    // Footer
-    doc.setFontSize(10);
-    doc.text("If you have any questions, contact info@miniaturewarrior.com.", 40, 720);
-    doc.text("Thank you for your business!", 40, 738);
-
-    // Save
     doc.save("invoice_" + $("#invoice_number").val() + ".pdf");
   };
 });
 
-
-/* ---------------------------
-   EMAIL
----------------------------- */
+/* Email Button */
 $("#email").click(function () {
   const subject = "Invoice " + $("#invoice_number").val();
   const body = encodeURIComponent(
