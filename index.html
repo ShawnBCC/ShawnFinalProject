@@ -22,21 +22,7 @@
         <li><a href="index.html" class="active">Home</a></li>
         <li><a href="about.html">About</a></li>
         <li><a href="gallery.html">Gallery</a></li>
-        <li class="has-submenu">
-          <a href="#">Collections</a>
-          <ul class="submenu">
-            <li><a href="samurai.html">Samurai</a></li>
-            <li><a href="knights.html">Knights</a></li>
-            <li><a href="vikings.html">Vikings</a></li>
-          </ul>
-        </li>
-
-        <!-- ===== Added New Pages ===== -->
-        <li><a href="mortgage.html">Mortgage Calculator</a></li>
-        <li><a href="milespergallon.html">MPG Calculator</a></li>
-        <li><a href="calculator.html">Invoice Calculator</a></li>
-        <li><a href="socialnews.html">Social News</a></li>
-        <li><a href="contact.html">Contact</a></li>
+        <li><a href="calculator.html">Calculator</a></li>
       </ul>
     </nav>
   </header>
@@ -45,6 +31,7 @@
   <div class="slider">
     <span class="arrow left">&#10094;</span>
     <span class="arrow right">&#10095;</span>
+
     <img src="images/samurai1.jpg" alt="Samurai 1" class="active">
     <img src="images/samurai2.jpg" alt="Samurai 2">
     <img src="images/samurai3.jpg" alt="Samurai 3">
@@ -53,24 +40,25 @@
   <!-- ===== Page Content ===== -->
   <div class="page-container">
     <h2>Welcome to Miniature Warrior</h2>
-    <p>Step into a world of history and artistry. At Miniature Warrior, we invite you to explore our carefully curated 
-      collection of miniature samurai figures and historical collectibles. Each piece tells a story, blending tradition
-      with craftsmanship.</p>
-    <p>My gallery showcases hand painted figures and authentic armor reproductions, perfect for collectors, history 
-      enthusiasts, or anyone who appreciates the beauty of the past brought to life in miniature form.</p>
+    <p>
+      Step into a world of history and artistry. At Miniature Warrior, explore a carefully curated 
+      collection of miniature samurai figures and historical collectibles.
+    </p>
 
-    <p>Check out the <a href="gallery.html">Gallery</a> or visit the <a href="about.html">About</a> page.</p>
-    
+    <p>
+      Visit the <a href="gallery.html">Gallery</a> or learn more on the 
+      <a href="about.html">About</a> page.
+    </p>
   </div>
 
   <!-- ===== Footer ===== -->
   <footer>
     <p>
       <a href="#">Terms of Use</a> |
-      <a href="#">Privacy</a> |
-      <a href="contact.html">Contact Us</a>
+      <a href="#">Privacy</a>
     </p>
   </footer>
+
   <div class="copyright">© 2025 Miniature Warrior</div>
 
   <!-- ===== JavaScript ===== -->
@@ -78,18 +66,9 @@
   document.addEventListener("DOMContentLoaded", function () {
     const menuToggle = document.querySelector(".menu-toggle");
     const mainNav = document.querySelector(".main-nav");
+
     menuToggle.addEventListener("click", function () {
       mainNav.classList.toggle("open");
-    });
-
-    const submenuParents = document.querySelectorAll(".has-submenu > a");
-    submenuParents.forEach(link => {
-      link.addEventListener("click", function (e) {
-        if (window.innerWidth <= 768) {
-          e.preventDefault();
-          this.parentElement.classList.toggle("open");
-        }
-      });
     });
 
     const slides = document.querySelectorAll(".slider img");
