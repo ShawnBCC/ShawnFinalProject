@@ -11,25 +11,17 @@
 <header>
   <img src="images/my-logo.jpg" alt="Logo">
   <h1>Miniature Warrior</h1>
+
+  <!-- Mobile Toggle -->
   <button class="menu-toggle">☰</button>
+
+  <!-- Navigation -->
   <nav class="main-nav">
     <ul>
       <li><a href="index.html">Home</a></li>
       <li><a href="about.html" class="active">About</a></li>
       <li><a href="gallery.html">Gallery</a></li>
-      <li class="has-submenu">
-        <a href="#">Collections ▾</a>
-        <ul class="submenu">
-          <li><a href="samurai.html">Samurai</a></li>
-          <li><a href="weapons.html">Weapons</a></li>
-          <li><a href="armor.html">Armor</a></li>
-        </ul>
-      </li>
-      <li><a href="mortgage.html">Mortgage Calculator</a></li>
-        <li><a href="milespergallon.html">MPG Calculator</a></li>
-        <li><a href="calculator.html">Invoice Calculator</a></li>
-        <li><a href="socialnews.html">Social News</a></li>
-      <li><a href="contact.html">Contact</a></li>
+      <li><a href="calculator.html">Calculator</a></li>
     </ul>
   </nav>
 </header>
@@ -37,26 +29,42 @@
 <main>
   <div class="page-container">
     <h2>About Miniature Warrior</h2>
-    <p>Miniature Warrior was founded out of a passion for history and craftsmanship. We specialize in miniature samurai figures, authentic armor replicas, and historically inspired collectibles.</p>
-    <p>Our mission is to bring history to life through detailed miniature art. Each piece is carefully designed and hand-painted to ensure accuracy and quality, perfect for collectors and enthusiasts alike.</p>
-    <p>We also offer educational resources, workshops, and gallery exhibitions to promote appreciation for historical figures and their artistry.</p>
+
+    <p>
+      Miniature Warrior was founded out of a passion for history and craftsmanship. 
+      We specialize in miniature samurai figures and historical collectibles.
+    </p>
+
+    <p>
+      Our mission is to bring history to life through detailed miniature art. 
+      Each piece is carefully designed and hand-painted to ensure accuracy and 
+      quality, perfect for collectors and enthusiasts alike.
+    </p>
+
+    <p>
+      Our gallery showcases unique pieces inspired by warriors, armor, and historical tradition.
+    </p>
   </div>
 </main>
 
-<div class="copyright">
-  &copy; All Rights Reserved 2012
-</div>
-
 <footer>
-  <a href="#">Terms of Use</a> |
-  <a href="#">Privacy</a> |
-  <a href="contact.html">Contact Us</a>
+  <p>
+    <a href="#">Terms of Use</a> |
+    <a href="#">Privacy</a>
+  </p>
 </footer>
 
+<div class="copyright">
+  © 2025 Miniature Warrior
+</div>
+
 <script>
-const toggleBtn = document.querySelector(".menu-toggle");
-const nav = document.querySelector(".main-nav");
-toggleBtn.addEventListener("click", () => nav.classList.toggle("open"));
+  const toggleBtn = document.querySelector(".menu-toggle");
+  const nav = document.querySelector(".main-nav");
+
+  toggleBtn.addEventListener("click", () => {
+    nav.classList.toggle("open");
+  });
 </script>
 
 </body>
