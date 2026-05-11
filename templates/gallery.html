@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Gallery - Miniature Warrior{% endblock %}
+{% block content %}
+<h2>Gallery</h2>
+{% set items = [
+  ('samurai1.jpg','Takeda Shingen'),
+  ('samurai2.jpg','Naoe Kanetsugu'),
+  ('samurai3.jpg','Ishida Mitsunari'),
+  ('samurai4.jpg','Kuroda Yoshitaka'),
+  ('samurai5.jpg','Imagawa Yoshimoto'),
+  ('samurai6.jpg','Maeda Keiji')
+] %}
+{% for image, name in items %}
+<div class="gallery-item">
+  <img src="{{ url_for('static', filename='images/' ~ image) }}" alt="{{ name }}">
+  <div class="description">
+    <h3>{{ name }}</h3>
+    <p>Samurai in ancient Japan were symbols of honor, known for detailed armor, clan flags, and katanas. This miniature figure captures the style of Sengoku-era warriors.</p>
+    <p><strong>Details:</strong> Length: 17.5cm | Width: 9cm | Height: 21cm<br>Material: Metal, Plastic</p>
+  </div>
+</div>
+{% endfor %}
+{% endblock %}

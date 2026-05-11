@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Inventory Database - Miniature Warrior{% endblock %}
+{% block content %}
+<h2>Samurai Inventory Database</h2>
+<p>This page retrieves records from the MySQL database.</p>
+
+<form class="search-form" method="GET" action="{{ url_for('inventory') }}">
+  <input type="text" name="search" placeholder="Search by name, clan, or material" value="{{ search }}">
+  <button type="submit">Search</button>
+  <a class="btn" href="{{ url_for('inventory') }}">Clear</a>
+  <a class="btn" href="{{ url_for('add_figure') }}">Add New Figure</a>
+</form>
+
+<div class="cards">
+{% for figure in figures %}
+  <div class="card">
+    <img src="{{ url_for('static', filename='images/' ~ figure.image_file) }}" alt="{{ figure.name }}">
+    <h3>{{ figure.name }}</h3>
+    <p><strong>Clan:</strong> {{ figure.clan }}</p>
+    <p><strong>Material:</strong> {{ figure.material }}</p>
+    <p><strong>Height:</strong> {{ figure.height_cm }} cm</p>
+    <p><strong>Price:</strong> ${{ '%.2f'|format(figure.price) }}</p>
+    <p><strong>Quantity:</strong> {{ figure.quantity }}</p>
+    <p>{{ figure.description }}</p>
+    <a class="btn" href="{{ url_for('edit_figure', figure_id=figure.figure_id) }}">Edit</a>
+    <form class="inline-form" method="POST" action="{{ url_for('delete_figure', figure_id=figure.figure_id) }}" onsubmit="return confirm('Delete this figure?');">
+      <button class="delete-btn" type="submit">Delete</button>
+    </form>
+  </div>
+{% else %}
+  <p>No records found.</p>
+{% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Home - Miniature Warrior{% endblock %}
+{% block content %}
+<div class="slider">
+  <span class="arrow left">&#10094;</span>
+  <span class="arrow right">&#10095;</span>
+  <img src="{{ url_for('static', filename='images/samurai1.jpg') }}" alt="Samurai 1" class="active">
+  <img src="{{ url_for('static', filename='images/samurai2.jpg') }}" alt="Samurai 2">
+  <img src="{{ url_for('static', filename='images/samurai3.jpg') }}" alt="Samurai 3">
+</div>
+
+<h2>Welcome to Miniature Warrior</h2>
+<p>Step into a world of history and artistry. Miniature Warrior is a web application for displaying and managing miniature samurai collectibles.</p>
+<p>This version uses Flask and MySQL, so users can add, view, search, update, and delete records from the inventory database.</p>
+<p><a class="btn" href="{{ url_for('inventory') }}">View Inventory Database</a></p>
+{% endblock %}
+{% block scripts %}
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const slides = document.querySelectorAll(".slider img");
+  const prev = document.querySelector(".arrow.left");
+  const next = document.querySelector(".arrow.right");
+  let index = 0;
+  function showSlide(i) {
+    slides.forEach((slide, idx) => {
+      slide.classList.remove("active");
+      if (idx === i) slide.classList.add("active");
+    });
+  }
+  prev.addEventListener("click", function () {
+    index = (index - 1 + slides.length) % slides.length;
+    showSlide(index);
+  });
+  next.addEventListener("click", function () {
+    index = (index + 1) % slides.length;
+    showSlide(index);
+  });
+});
+</script>
+{% endblock %}
